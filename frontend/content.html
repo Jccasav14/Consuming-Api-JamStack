@@ -2,11 +2,17 @@
 <html lang="es">
 <head>
   <meta charset="UTF-8">
-  <title>Rick and Morty</title>
+  <title>Visor de API</title>
   <link rel="stylesheet" href="styles/characters.css">
 </head>
 <body>
-  <h1>Rick and Morty</h1>
+  <h1>Visor de API Genérica</h1>
+  <p>Pega una URL de API pública (por ejemplo: <code>https://rickandmortyapi.com/api/character</code>)</p>
+
+  <input type="text" id="apiUrl" placeholder="Pega aquí la URL de la API">
+  <button id="loadApi">Buscar</button>
+
+  <div id="message"></div>
   <div id="characters-container"></div>
 
   <script src="js/rickyandmorty.js"></script>

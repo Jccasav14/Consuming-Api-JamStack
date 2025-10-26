@@ -1,55 +1,73 @@
 body {
-  font-family: Arial, sans-serif;
-  background-color: #121212;
+  font-family: 'Segoe UI', sans-serif;
+  background-color: #111;
   color: #fff;
-  margin: 0;
-  padding: 20px;
+  text-align: center;
+  padding: 40px;
 }
 
-h1 {
-  text-align: center;
-  margin-bottom: 30px;
+input, button {
+  padding: 10px;
+  margin: 10px;
+  border: none;
+  border-radius: 6px;
+  outline: none;
+}
+
+input {
+  width: 60%;
+}
+
+button {
+  background-color: #00ffae;
+  color: #000;
+  cursor: pointer;
+  font-weight: bold;
+  transition: 0.3s;
+}
+
+button:hover {
+  background-color: #00d499;
 }
 
 #characters-container {
   display: flex;
   flex-wrap: wrap;
-  gap: 20px;
   justify-content: center;
+  gap: 25px;
+  margin-top: 40px;
 }
 
-.character-card {
-  background-color: #1e1e1e;
-  border-radius: 10px;
-  overflow: hidden;
+.card {
+  background-color: #1f1f1f;
+  border-radius: 12px;
   width: 250px;
-  box-shadow: 0 4px 12px rgba(0,0,0,0.5);
-  display: flex;
-  flex-direction: column;
-}
-
-.character-card img {
-  width: 100%;
-  height: auto;
-}
-
-.character-info {
   padding: 15px;
+  box-shadow: 0 0 12px #00ffae44;
+  transition: 0.3s;
 }
 
-.character-info h3 {
-  margin: 0;
-  font-size: 1.2em;
+.card:hover {
+  transform: scale(1.05);
+  box-shadow: 0 0 18px #00ffaeaa;
 }
 
-.character-info p.short {
-  font-size: 0.95em;
-  color: #ccc;
-  margin: 5px 0;
+.card img {
+  width: 100%;
+  height: 220px;
+  object-fit: cover;
+  border-radius: 8px;
 }
 
-.character-info p.long {
+.short-desc {
+  font-size: 1.1em;
+  font-weight: bold;
+  color: #00ffae;
+  margin: 10px 0 5px;
+}
+
+.long-desc {
   font-size: 0.9em;
-  margin-top: 10px;
-  color: #aaa;
+  color: #ccc;
+  text-align: justify;
 }

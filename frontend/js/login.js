@@ -6,7 +6,7 @@ document.getElementById("loginForm").addEventListener("submit", async (e) => {
   const message = document.getElementById("message");
 
   try {
-    const res = await fetch("/login", {
+    const res = await fetch("http://localhost:3000/api/login", {
       method: "POST",
       headers: { "Content-Type": "application/json" },
       body: JSON.stringify({ username, password })
@@ -14,13 +14,21 @@ document.getElementById("loginForm").addEventListener("submit", async (e) => {
 
     const data = await res.json();
 
-    if (!data.ok) {
-      message.textContent = data.message;
+
+    if (res.status !== 200) {
+      message.textContent = data.message || "Credenciales incorrectas";
       return;
     }
 
-    sessionStorage.setItem("user", JSON.stringify(data.user));
-    window.location.href = "/content.html";
+ 
+    sessionStorage.setItem("user", JSON.stringify({
+      id: data.id,
+      username: data.username,
+      role: data.role
+    }));
+
+
+    window.location.href = "content.html";
 
   } catch (err) {
     message.textContent = "Error de conexión";

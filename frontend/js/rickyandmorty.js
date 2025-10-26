@@ -1,30 +1,63 @@
-const container = document.getElementById("characters-container");
+document.getElementById("loadApi").addEventListener("click", async () => {
+  const url = document.getElementById("apiUrl").value.trim();
+  const container = document.getElementById("characters-container");
+  const message = document.getElementById("message");
 
-async function loadCharacters() {
+  container.innerHTML = "";
+  message.textContent = "";
+
+  if (!url) {
+    message.textContent = "Por favor, ingresa una URL de API.";
+    return;
+  }
+
   try {
-    const res = await fetch("https://rickandmortyapi.com/api/character");
+    const res = await fetch(url);
     const data = await res.json();
-    const characters = data.results;
 
-    characters.forEach(char => {
+
+    const items = Array.isArray(data) ? data : data.results || [data];
+
+    items.forEach((item) => {
+      const image =
+        item.image || item.urlToImage || item.thumbnail || "https://via.placeholder.com/250";
+      const name = item.name || item.title || "Sin título";
+
+
+      const shortDesc =
+        item.species ||
+        item.status ||
+        item.type ||
+        item.category ||
+        "Sin descripción corta";
+
+
+      let longDesc = "";
+
+      if (item.status || item.gender || item.origin?.name) {
+        longDesc = `Este personaje está ${
+          item.status?.toLowerCase() || "sin estado conocido"
+        }, pertenece a la especie ${item.species || "desconocida"} y proviene de ${
+          item.origin?.name || "un lugar desconocido"
+        }.`;
+      } else {
+        longDesc =
+          item.description ||
+          item.summary ||
+          "No se encontró una descripción detallada.";
+      }
+
+
       const card = document.createElement("div");
-      card.classList.add("character-card");
-
+      card.className = "card";
       card.innerHTML = `
-        <img src="${char.image}" alt="${char.name}">
-        <div class="character-info">
-          <h3>${char.name}</h3>
-          <p class="short">Especie: ${char.species}</p>
-          <p class="long">Estado: ${char.status} | Género: ${char.gender} | Ubicación: ${char.location.name}</p>
-        </div>
+        <img src="${image}" alt="${name}">
+        <div class="short-desc">${name} - ${shortDesc}</div>
+        <div class="long-desc">${longDesc}</div>
       `;
-
       container.appendChild(card);
     });
-
   } catch (err) {
-    container.innerHTML = "<p>Error al cargar los personajes</p>";
+    message.textContent = "Error al cargar la API o formato no compatible.";
   }
-}
-
-loadCharacters();
+});
